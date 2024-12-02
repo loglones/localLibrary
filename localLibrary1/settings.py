@@ -27,8 +27,8 @@ import os
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-2__(ryvsru(*g!(1*a%py=yoz9!l2bo)c-7-!mt0tfq%ctfn5v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+# DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = []
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'localLibrary1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tomsk'
 
 USE_I18N = True
 
