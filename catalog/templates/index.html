@@ -13,11 +13,19 @@
     <li><strong>Копии:</strong> {{ num_instances }}</li>
     <li><strong>Доступные копии:</strong> {{ num_instances_available }}</li>
     <li><strong>Авторы:</strong> {{ num_authors }}</li>
+    <p>Новинки: </p>
+    <ul>
+        {% for book in latest_books %}
+            <li>{{ book.title }} by {{ book.author }} (Добавлено: {{ book.created_at }})</li>
+        {% empty %}
+            <li>Нет книг для отображения</li>
+        {% endfor %}
+    </ul>
   </ul>
 
-<p>
-  Посещений твоей страницы : {{ num_visits }}{% if num_visits == 1 %} time{%
-  else %} times{% endif %}.
-</p>
+<!--<p>-->
+<!--  Посещений твоей страницы : {{ num_visits }}{% if num_visits == 1 %} time{%-->
+<!--  else %} times{% endif %}.-->
+<!--</p>-->
 
 {% endblock %}

@@ -6,6 +6,8 @@ from datetime import date
 
 
 
+
+
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text="Введите жанр книги")
     def __str__(self):
@@ -17,6 +19,7 @@ class Book(models.Model):
     summary = models.TextField(max_length=1000, help_text="Введите описание книги")
     isbn = models.CharField('ISBN', max_length=13,help_text='13 Символов <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     genre = models.ManyToManyField(Genre, help_text="Выберите жанр книги")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def display_genre(self):
         return ','.join([genre.name for genre in self.genre.all()[:3] ])

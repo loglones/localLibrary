@@ -24,6 +24,14 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
         return (BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back'))
 
 
+def lastBooks(request):
+    latest_books = Book.objects.order_by('-created_at')[:3]
+    print(latest_books)
+    context = {
+        'latest_books': latest_books
+    }
+    return render(request, 'index.html', context)
+
 def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
@@ -33,12 +41,14 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
+    latest_books = Book.objects.order_by('-created_at')[:3]  # Получаем последние книги
+
     return render(
         request,
         'index.html',
         context=
         {'num_books':num_books, 'num_instances':num_instances,
-         'num_instances_availabel':num_instances_available, 'num_authors':num_authors, 'num_visits':num_visits},
+         'num_instances_availabel':num_instances_available, 'num_authors':num_authors, 'num_visits':num_visits, 'latest_books':latest_books},
     )
 
 class BookListView(generic.ListView):
@@ -117,3 +127,4 @@ class BookUpdate(UpdateView):
 class BookDelete(DeleteView):
     model = Book
     success_url = reverse_lazy('books')
+
