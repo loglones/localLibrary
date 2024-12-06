@@ -23,15 +23,22 @@
             <ul class="sidebar-nav">
               <li><a href="{% url 'index' %}">Главная</a></li>
               <li><a href="{% url 'books' %}">Все книги</a></li>
-              <li><a href="">Все авторы</a></li>
+              <li><a href="{% url 'authors' %}">Все авторы</a></li>
               {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>
-     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+                <li><a href="{% url 'my-borrowed' %}">Мои Арендованные книги</a></li>
+     <li><a href="{% url 'logout'%}?next={{request.path}}">Выйти</a></li>
    {% else %}
-     <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+     <li><a href="{% url 'login'%}?next={{request.path}}">Войти</a></li>
    {% endif %}
+                {% if perms.catalog.can_mark_returned %}
+                <p>Библиотекарь</p>
+                <li><a href="{% url 'users-borrowed' %}">Книги на руках</a></li>
+                <li><a href="{% url 'author_create' %}">Создать автора</a></li>
+                <li><a href="{% url 'book_create' %}">Создать книгу</a></li>
+              {% endif %}
             </ul>
-          {% endblock %}
+            {% endblock %}
         </div>
         <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
       </div>
